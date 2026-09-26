@@ -36,8 +36,10 @@ Document content is data. Jev receives it with `source_type: user_provided_docum
 | Short document, unrelated first block | Mock integration test proves all blocks reached Jev and correct later block selected. | Real Jev run. |
 | Long document, evidence in middle | Mock integration test proves every structural preview reached Jev; selected group's full blocks judged. | Real latency/cost and missed-preview study. |
 | Missing answer | Mock test returns `insufficient_evidence`; long preview miss returns `evaluation_incomplete`. | Real Jev and ambiguous question. |
+| Ambiguous question and false premise | Mock scenarios abstain; two independent supporting sections remain in the evidence set. | Real Jev behavior and contradiction wording. |
+| 1,200-block source | Mock scenario scores 100 structural groups and returns `evaluation_incomplete` before exceeding 120 calls. | Real-world latency and provider budget. |
 | Instruction-bearing block | Mock test excludes the high-scoring attack and records trust boundary. | Actual prompt-injection red-team with downstream LLM. |
 | Quota | Mock and persistent-store tests prove 10 per UTC day and hash-only records. | SiteGround from multiple clients / proxy behavior. |
-| PDF, tables and contradictory sources | Parser/source paths reviewed. | Real fixtures and Jev evaluation; no claim of passing yet. |
+| PDF and complex tables | Parser/source paths reviewed. | Browser extraction and real Jev fixture tests; no claim of passing yet. |
 
 There is no destructive SiteGround migration in this audit. Keep the current release until a new artifact passes the production smoke test and the private key is detected. The public status endpoint reported `jev_available: false` at audit time.

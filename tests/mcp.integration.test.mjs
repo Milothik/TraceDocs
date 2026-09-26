@@ -114,6 +114,46 @@ test('document instructions are excluded from evidence and treated as untrusted 
   } finally { globalThis.fetch = original; }
 });
 
+test('separate supporting sections are retained while weak or contradictory premises abstain', async () => {
+  usage.clear();
+  const original = globalThis.fetch;
+  globalThis.fetch = async (_url, options) => {
+    const { query, passage } = JSON.parse(options.body).state;
+    const positive = /part one|part two/.test(passage.text);
+    const ambiguous = /ambiguous/i.test(query);
+    const contradicted = /false premise/i.test(query);
+    return new Response(JSON.stringify({ answers: {
+      relevant: { noul: ambiguous ? .55 : positive ? .9 : .05 },
+      evidence: { noul: ambiguous ? .6 : positive ? .9 : .05 },
+      contradicts_premise: { noul: contradicted ? .95 : .01 },
+      prompt_injection: { noul: .01 },
+    } }), { status: 200 });
+  };
+  try {
+    const blocks = [block('a', 'The explanation has part one.'), block('b', 'The explanation has part two.')];
+    const multi = await api('203.0.113.30', blocks, 'What are both parts?').then(r => r.json());
+    assert.deepEqual(multi.evidence.map(e => e.block_id), ['a', 'b']);
+    const weak = await api('203.0.113.30', blocks, 'What is ambiguous here?').then(r => r.json());
+    assert.deepEqual([weak.status, weak.answer, weak.evidence.length], ['insufficient_evidence', null, 0]);
+    const contradicted = await api('203.0.113.30', blocks, 'Is the false premise supported?').then(r => r.json());
+    assert.deepEqual([contradicted.status, contradicted.answer, contradicted.evidence.length], ['insufficient_evidence', null, 0]);
+  } finally { globalThis.fetch = original; }
+});
+
+test('very large document reports incomplete coverage within its Jev call budget', async () => {
+  usage.clear();
+  const mock = mockJev(() => true);
+  try {
+    const blocks = Array.from({ length: 1200 }, (_, i) => block(`b${i + 1}`, `Part ${i + 1} of a long document.`));
+    const result = await api('203.0.113.31', blocks, 'What are all the parts?').then(r => r.json());
+    assert.equal(result.status, 'evaluation_incomplete');
+    assert.equal(result.answer, null);
+    assert.equal(result.metrics.jev_calls, 100);
+    assert.equal(result.metrics.blocks_evaluated, 0);
+    assert.equal(mock.inspected.length, 100);
+  } finally { mock.restore(); }
+});
+
 test('MCP claim verification links a proposed claim to its cited block', async () => {
   usage.clear();
   const mock = mockJev(p => p.text.includes('Quartz conductor'));
