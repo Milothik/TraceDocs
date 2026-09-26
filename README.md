@@ -38,7 +38,6 @@ The SiteGround PHP adapter (`siteground/backend.php`) uses `REMOTE_ADDR`, an exc
 Requires Node.js 20 or newer and Python 3.
 
 ```sh
-python3 tools/build_worker.py
 npm run build
 npm run validate
 npm test
@@ -46,6 +45,12 @@ npm start
 ```
 
 The browser app is served at `/TraceDocs/` by default. Set `TRACEDOCS_BASE_PATH` to change the path. Keep `TYPESAFE_API_KEY` only in server environment variables for actual Jev calls. Set `TRACEDOCS_DATA_FILE` to a persistent, private path on hosting that replaces deployment directories. The Worker artifact is `dist/server/index.js`; private site hosting metadata is optional during local builds. The repository includes a source-only demo and no production key or live site URL.
+
+## Document trust and Hypership Day
+
+Uploaded text is untrusted data. Jev scores whether a block attempts to instruct the answering system, and blocks at or above the configured threshold are excluded from the evidence set. Evidence objects retain `source_trust: untrusted_document`; the trace tells a calling LLM to use document text as data, cite selected block IDs and abstain on absent evidence or incomplete coverage. This reduces exposure to prompt injection but cannot guarantee prevention or control an external agent. No raw document text, query, filename, IP or key is written by the aggregate server metric events.
+
+The active interface supports block-level source inspection and JSON trace export. Exact fragment highlighting, multi-document comparison, query history, a generated-answer `POST /query` endpoint and an in-app answer model are **not active**. Do not advertise them as shipped. The Product Hunt copy and FAQ are in `PRODUCT_HUNT_COPY.md`; event operations and candidate work are in `HYPERSHIP_DAY_PLAN.md` and `HYPERSHIP_BACKLOG.md`. See `docs/HYPERSHIP_AUDIT.md` for the technical limits, including PDF parsing, serial Jev calls and the current live-key gate.
 
 ## Verification limits
 

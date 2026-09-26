@@ -2,6 +2,7 @@ benchmark_jev_cache.jsonl
 __pycache__/
 node_modules/
 dist/
+worker/index.js
 .openai/
 .env
 .env.*

@@ -129,12 +129,13 @@ function renderEvaluation(data) {
   const verdict = document.createElement('div'); verdict.className = 'verdict';
   verdict.textContent = data.status === 'supported' ? `${data.evidence.length} evidence blocks selected by Jev.` : data.status === 'evaluation_incomplete' ? `Evaluation incomplete: ${data.reason}` : 'Insufficient evidence in the evaluated document.';
   $('jevOutput').append(verdict);
-  const metrics = document.createElement('p'); metrics.textContent = `Document blocks: ${data.metrics.document_blocks} · inspected: ${data.metrics.blocks_inspected} · full block scores: ${data.metrics.blocks_evaluated} · Jev calls: ${data.metrics.jev_calls} · selected: ${data.metrics.evidence_blocks_selected} · latency: ${data.metrics.latency_ms} ms · estimated cost: unavailable`;
+  const metrics = document.createElement('p'); metrics.textContent = `Document blocks: ${data.metrics.document_blocks} · inspected: ${data.metrics.blocks_inspected} · full block scores: ${data.metrics.blocks_evaluated} · Jev calls: ${data.metrics.jev_calls} · selected: ${data.metrics.evidence_blocks_selected} · instruction-bearing blocks flagged: ${data.metrics.prompt_injection_blocks_flagged || 0} · latency: ${data.metrics.latency_ms} ms · estimated cost: unavailable`;
   $('jevOutput').append(metrics);
   if (data.trace?.stage1?.length) { const note = document.createElement('small'); note.textContent = `Hierarchical Jev scan: ${data.trace.stage1.length} structural previews judged; each preview contains up to 225 characters from every member block. Full blocks in Jev-selected groups were judged next.`; $('jevOutput').append(note); }
   if (data.status === 'supported') for (const evidence of data.evidence) addCard({ ...evidence, id: evidence.block_id, title: evidence.section, location: evidence.paragraph }, 'JEV EVIDENCE · DOCUMENT → PAGE → SECTION → BLOCK', evidence.jev_score);
   else renderManifest();
   $('answerOutput').textContent = data.status === 'supported' ? 'Evidence set ready. The calling LLM can produce an answer with these block IDs and citations; TraceDocs has not generated an answer.' : 'Answer: none. No supported answer should be generated from this evaluation.';
+  if (data.metrics.prompt_injection_blocks_flagged) { const warning = document.createElement('p'); warning.textContent = 'Document instructions were flagged and excluded from selected evidence. This check does not guarantee that all prompt injections are detected.'; $('jevOutput').append(warning); }
   $('exportTrace').disabled = false;
 }
 async function evaluateJev() {

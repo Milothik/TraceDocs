@@ -7,6 +7,6 @@
     "start": "node app.mjs",
     "build": "bash scripts/build.sh",
     "validate": "node scripts/validate-artifact.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "test": "python3 tools/build_worker.py && node --test tests/*.test.mjs"
   }
 }
