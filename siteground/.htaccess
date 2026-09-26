@@ -1,0 +1,10 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^(api/status|api/evaluate|mcp)/?$ backend.php [QSA,L]
+</IfModule>
+<IfModule mod_headers.c>
+<Files "index.html">
+Header always set Cache-Control "no-cache, max-age=0, must-revalidate"
+</Files>
+</IfModule>

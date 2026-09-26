@@ -1,0 +1,12 @@
+benchmark_jev_cache.jsonl
+__pycache__/
+node_modules/
+dist/
+.openai/
+.env
+.env.*
+!.env.example
+.venv/
+*.pyc
+/data/
+*.tmp
