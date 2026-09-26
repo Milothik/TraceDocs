@@ -14,6 +14,8 @@ Avoid “deterministic answer” as a blanket promise: code applies explicit thr
 
 Document AI can miss the right passage before the answering model ever sees it. TraceDocs structures a PDF, text file or code project and asks Jev to judge evidence across all blocks for a small document. For larger sources, Jev scans structural previews first and selects groups for full evaluation. Your agent receives cited evidence, coverage and a JSON trace, then can answer from that evidence or abstain.
 
+**Product Hunt description field (under 260 characters):** TraceDocs lets Jev judge structured document blocks before an agent answers. Inspect cited evidence, source locations and a JSON trace. Small sources are evaluated in full; large ones use Jev-led section previews. Free beta: 10 evaluations per IP daily.
+
 ## Full description
 
 In a common document pipeline, text is chunked, embeddings or search select a few passages, and an LLM answers from that shortlist. A relevant passage excluded at search time cannot be reconsidered downstream.
@@ -48,7 +50,7 @@ The current beta evaluates every block for small documents. With larger ones, Je
 
 ## Media plan
 
-- Cover: question → Jev evidence → page/section/block trace, accurately labelled as a prototype.
+- Prepared square thumbnail: `media/thumbnail.png` (240×240). Prepared gallery illustrations: `media/gallery_workflow.png` and `media/gallery_trace.png` (1270×760 each). They explain the workflow and are labelled as illustrations, not fabricated product screenshots.
 - Short screen recording: upload or guided case, evaluate, inspect evidence, export JSON; use only a verified live Jev result.
 - Screenshot: abstention on an unsupported question and clear quota state.
 - No fabricated customer reviews, benchmark numbers, token savings or live answer generation.
