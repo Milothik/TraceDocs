@@ -4,6 +4,12 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.js';
 const $ = id => document.getElementById(id);
 let documentState = null, demo = null, lastQuery = '', lastEvaluation = null, selectedQuestion = null;
 let accessState = { limit: 10, used: 0, remaining: 10 };
+const MAX_EVALUATION_BLOCKS = 1200, MAX_EVALUATION_CHARACTERS = 1500000, MAX_EVALUATION_BYTES = 1800000;
+function evaluationLimit(state) {
+  if (state.blocks.length > MAX_EVALUATION_BLOCKS) return `This document has ${state.blocks.length} blocks; the evaluation limit is ${MAX_EVALUATION_BLOCKS}. Try a smaller source.`;
+  if (state.blocks.reduce((total, block) => total + block.text.length, 0) > MAX_EVALUATION_CHARACTERS) return 'This document exceeds the 1.5 million character evaluation limit. Try a smaller source.';
+  return null;
+}
 const hash = async data => [...new Uint8Array(await crypto.subtle.digest('SHA-256', data))].map(x => x.toString(16).padStart(2, '0')).join('');
 const pageFrom = location => { const m = location?.match(/(?:PDF page|page)\s+(\d+)/i); return m ? Number(m[1]) : null; };
 function makeBlocks(source, filename) {
@@ -18,13 +24,25 @@ async function pdfBlocks(file) {
   const blocks = [];
   for (let p = 1; p <= pdf.numPages; p++) {
     const page = await pdf.getPage(p), content = await page.getTextContent(), items = content.items.filter(x => x.str?.trim());
+    const lines = [];
     let line = '', oldY = null;
     for (const item of items) {
       const y = Math.round(item.transform[5]);
-      if (oldY !== null && Math.abs(oldY - y) > 3) { if (line.trim()) blocks.push({ text: line.trim(), location: `PDF page ${p}` }); line = ''; }
+      if (oldY !== null && Math.abs(oldY - y) > 3) { if (line.trim()) lines.push(line.trim()); line = ''; }
       line += (line ? ' ' : '') + item.str; oldY = y;
     }
-    if (line.trim()) blocks.push({ text: line.trim(), location: `PDF page ${p}` });
+    if (line.trim()) lines.push(line.trim());
+    let chunk = [], start = 1;
+    const flush = () => {
+      if (!chunk.length) return;
+      blocks.push({ text: chunk.join(' '), location: `PDF page ${p} · lines ${start}–${start + chunk.length - 1}` });
+      start += chunk.length; chunk = [];
+    };
+    for (const text of lines) {
+      if (chunk.length && (chunk.length >= 8 || chunk.join(' ').length + text.length + 1 > 900)) flush();
+      chunk.push(text);
+    }
+    flush();
   }
   return blocks;
 }
@@ -49,8 +67,9 @@ function activateDocument(state) {
   $('caseTitle').textContent = state.name;
   $('caseDescription').textContent = state.note || 'Document structure extracted locally in your browser.';
   $('retrieverState').textContent = `${state.blocks.length} structural blocks · no retrieval filter`;
-  $('exportTrace').disabled = true; $('evaluate').disabled = false;
-  $('searchStatus').textContent = 'Choose a question. Jev will evaluate the document structure when requested.';
+  const limit = evaluationLimit(state);
+  $('exportTrace').disabled = true; $('evaluate').disabled = !!limit;
+  $('searchStatus').textContent = limit || 'Choose a question. Jev will evaluate the document structure when requested.';
   renderManifest();
 }
 async function loadDemo() {
@@ -76,7 +95,7 @@ async function loadFile(file) {
   if (!blocks.length) throw Error('No text was extracted; scanned PDFs need OCR');
   activateDocument({ name: file.name, id: digest, bytes, sha256: digest, blocks, mode: ext === 'zip' ? 'project' : 'user' });
   $('examples').textContent = 'Ask a question about this document or source-code project.';
-  $('uploadStatus').textContent = `Structured locally: ${file.name}${files ? ` · ${files} files` : ''} · ${blocks.length} blocks · SHA-256 ${digest.slice(0, 16)}… . Jev receives structured text only when you evaluate.`;
+  $('uploadStatus').textContent = `Structured locally: ${file.name}${files ? ` · ${files} files` : ''} · ${blocks.length} blocks · SHA-256 ${digest.slice(0, 16)}… . ${evaluationLimit(documentState) || 'Jev receives structured text only when you evaluate.'}`;
 }
 function showSource(block) {
   $('dialogTitle').textContent = block.title || block.section;
@@ -100,15 +119,16 @@ function renderManifest() {
   $('results').replaceChildren();
   for (const block of documentState.blocks.slice(0, 40)) addCard(block, `DOCUMENT BLOCK · ${block.id}`);
   if (documentState.blocks.length > 40) {
-    const note = document.createElement('p'); note.className = 'status'; note.textContent = `${documentState.blocks.length - 40} more blocks are included in Jev evaluation. The preview shows the first 40; evidence from any evaluated block appears here.`; $('results').append(note);
+    const note = document.createElement('p'); note.className = 'status'; note.textContent = `${documentState.blocks.length - 40} more blocks in the document. The preview shows the first 40; the evaluation trace reports which blocks Jev inspected.`; $('results').append(note);
   }
 }
 function prepareQuestion(question) {
   lastQuery = question.trim(); $('query').value = lastQuery;
   lastEvaluation = null; $('jevOutput').replaceChildren(); $('answerOutput').textContent = ''; $('exportTrace').disabled = true;
   renderManifest();
-  $('searchStatus').textContent = `${documentState.blocks.length} blocks in this document. Jev decides which blocks support the question; no lexical search excludes them.`;
-  $('evaluate').disabled = false;
+  const limit = evaluationLimit(documentState);
+  $('searchStatus').textContent = limit || `${documentState.blocks.length} blocks in this document. Jev decides which blocks support the question; no lexical search excludes them.`;
+  $('evaluate').disabled = !!limit;
 }
 function updateAccess(value) {
   accessState = { ...accessState, ...value };
@@ -140,10 +160,13 @@ function renderEvaluation(data) {
 }
 async function evaluateJev() {
   if (!documentState || !lastQuery) throw Error('Choose a document and question first');
+  const limit = evaluationLimit(documentState); if (limit) throw Error(limit);
   if (accessState.remaining <= 0) { showDailyLimit(); throw Error('Daily Jev limit reached. You can run 10 Jev evaluations per day. The limit resets tomorrow.'); }
   $('evaluate').disabled = true; $('jevOutput').textContent = 'Jev is evaluating document blocks…';
   try {
-    const response = await fetch('./api/evaluate', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ question: lastQuery, document_id: documentState.id, document_name: documentState.name, source_url: documentState.source_url || null, blocks: documentState.blocks.map(({ id, title, section, location, page, text }) => ({ id, title, section, location, page, text })) }) });
+    const body = JSON.stringify({ question: lastQuery, document_id: documentState.id, document_name: documentState.name, source_url: documentState.source_url || null, blocks: documentState.blocks.map(({ id, title, section, location, page, text }) => ({ id, title, section, location, page, text })) });
+    if (new TextEncoder().encode(body).byteLength > MAX_EVALUATION_BYTES) throw Error('This evaluation exceeds the 1.8 MB request limit. Try a smaller source.');
+    const response = await fetch('./api/evaluate', { method: 'POST', headers: { 'content-type': 'application/json' }, body });
     const data = await response.json();
     if (response.status === 429 && data.code === 'daily_quota_exhausted') { updateAccess(data.usage || { used: 10, remaining: 0 }); showDailyLimit(); throw Error(data.error); }
     if (!response.ok) throw Error(data.error || 'Jev did not respond');
@@ -153,7 +176,7 @@ async function evaluateJev() {
     if (accessState.remaining === 0) showDailyLimit();
     return data;
   } catch (error) { $('jevOutput').textContent = error.message; throw error; }
-  finally { $('evaluate').disabled = false; }
+  finally { $('evaluate').disabled = !!evaluationLimit(documentState); }
 }
 function exportTrace() {
   if (!lastEvaluation) return;
