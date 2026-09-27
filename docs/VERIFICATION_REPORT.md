@@ -57,3 +57,11 @@ npm start
 ```
 
 Node.js 20+ and Python 3 are required for the Node build. Configure `TYPESAFE_API_KEY` only on the server for real evaluations and `TRACEDOCS_DATA_FILE` on durable private storage for the Node adapter. SiteGround uses the PHP adapter and a private quota directory. The live Jev call, external MCP connection and public beta quota need explicit acceptance checks after the key is installed.
+
+## 27 September deployment update
+
+- The SiteGround release is live at `https://noirway.nite.black/TraceDocs/`. The former `TraceDocs` directory was retained as `TraceDocs-prelaunch-20260926`, and a separate ZIP backup is in `public_html`. The live index loads `app.js?v=0.6.3` with a JavaScript MIME type.
+- A real 2.6 MB text PDF from the cited paper produced 1,313 line blocks before the fix and 174 page-and-line-linked blocks after deterministic grouping. A 13-file source ZIP produced 1,720 blocks; the UI now displays the 1,200-block limit before an evaluation request. Both files were parsed locally in the live browser. This does not prove Jev evaluation of either document.
+- The PHP status endpoint returned HTTP 200 with `jev_available: false`, 0/10 usage and a UTC reset timestamp. The private config file exists, but its key field is empty. HTTP MCP `tools/list` returned six tool definitions with `curl`; one PowerShell `Invoke-RestMethod` call received SiteGround 403, so client User-Agent compatibility remains to be checked.
+- The Worker built, `node --check public_src/app.js` passed, and all 13 automated tests passed. The Product Hunt listing is an unscheduled, editable draft with three tags, two gallery images, a thumbnail, maker information and an opening comment. Its date picker offers 30 September.
+- Still required for a go decision: configure a private TypeSafe key, prove supported evidence and unsupported abstention with real Jev responses, inspect/export a live trace, check quota and PHP MCP behavior, then schedule the listing for 30 September if those checks pass.
