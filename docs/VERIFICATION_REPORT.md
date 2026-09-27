@@ -1,7 +1,9 @@
 # TraceDocs v0.6 Verification Report
 
-**Review date:** 26 September 2026
+**Review date:** 26–27 September 2026
 **Scope:** Jev-led document evidence discovery, HTTP and MCP contracts, daily quota, and deployment readiness.
+
+**Current production state (27 September):** SiteGround serves v0.6.5 with an active Jev key in private configuration. The dated sections below record the sequence of checks; earlier draft and release states are historical. A live evaluation of the v0.6.5 export dialog and an ordinary-browser JSON download check remain open until the quota resets.
 
 ## 26 September baseline
 
@@ -75,7 +77,7 @@ Node.js 20+ and Python 3 are required for the Node build. Configure `TYPESAFE_AP
 - Additional live stress cases: an ambiguous question about two differently named projects returned both candidate blocks; contradictory dates for the same project also returned both candidate blocks. A question requiring facts from two separate short blocks returned `insufficient_evidence` because neither block alone passed the evidence rule. All three responses included per-block scores. Usage advanced from 6 to 9 of 10; the allowance resets at 00:00 UTC. TraceDocs does not synthesize across blocks or automatically reconcile conflicts. Version 0.6.4 strengthens the answer contract and visible copy so the calling agent must surface conflict or ambiguity rather than choose silently.
 - Version 0.6.4 is deployed at the public `/TraceDocs/` path. The extracted 15-entry release was checked for `.htaccess`, `backend.php`, `app.js`, `index.html` and vendor assets before activation. Its provisional URL returned HTTP 200, `jev_available: true`, MCP server version 0.6.4 and the updated script reference. After activation, the public URL returned the same status and version with 9/10 usage. The former live directory is archived outside the web root as `tracedocs-release-archive/TraceDocs-v063-20260927`. No post-0.6.4 Jev evaluation was made, preserving the last daily allowance for the user; the updated trace text is therefore verified by source review and local tests, not a fresh production result.
 - TypeSafe Usage filtered to `TraceDocs Launch Config 2026-09-27` showed 45 requests, 23,628 tokens and estimated spend of $0.0008 for the newly created key. The console warns that stats may be delayed and lists $0.042 per million input tokens with free output. This is account telemetry for the test traffic, not a calibrated per-query cost, and the app continues to report `estimated_cost: null`. The live 12-block prepared-case evaluation took about 3.2–3.4 seconds; single-block calls were under a second in the observed responses.
-- The documented `npm test`, `npm run build` and `npm run validate` sequence now passes on the maintainer's Windows machine without WSL: 13 tests pass, 14 Worker assets are embedded, and the distributable exports `default.fetch`. The cross-platform build change affects local release tooling only; the live PHP release remains 0.6.4. A keyboard-triggered JSON download attempt in the in-app browser still produced no download event and consumed no additional Jev quota, so ordinary-browser download verification remains open.
+- The documented `npm test`, `npm run build` and `npm run validate` sequence passed on the maintainer's Windows machine without WSL: 13 tests passed, 14 Worker assets were embedded, and the distributable exported `default.fetch`. The cross-platform build change affects local release tooling only; the live PHP release was 0.6.4 at this point and was subsequently updated to 0.6.5. A keyboard-triggered JSON download attempt in the in-app browser produced no download event and consumed no additional Jev quota, so ordinary-browser download verification remains open.
 
 ## 27 September v0.6.5 export and Worker smoke
 
