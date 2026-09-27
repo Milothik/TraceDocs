@@ -4,7 +4,7 @@ Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight P
 
 ## Go/no-go by 29 September
 
-- Public URL and mobile flow load; TypeSafe key is detected on the server; one real Jev evaluation returns block evidence and a trace. Run an unsupported question and confirm abstention. Do not promote a mock result as a live result.
+- Public URL and mobile flow load; TypeSafe key is detected on the server; one real Jev evaluation returns block evidence and a trace. Run an unsupported question and confirm abstention. Do not promote a mock result as a live result. Recheck external HTTP/MCP access after intermittent SiteGround 403 responses to terminal GET probes.
 - Verify 10 evaluations per IP per UTC day, including MCP and the web UI. Confirm quota storage survives a deployment. Check that no API key or private file is publicly accessible.
 - Verify PDF and ZIP upload, JSON trace download in an ordinary browser, and SiteGround PHP routes. Confirm the JSON view/copy fallback when downloads are suppressed. Rehearse a rollback using the archived release. Check real Jev latency and credits without claiming an estimated cost that is unavailable.
 - Prepare Product Hunt listing, media, maker comment, FAQ and the correct 30 September schedule. Confirm the Hypership event condition of no launch in the prior three months. Product Hunt's general relaunch guidance separately asks for six months between posts for the same product, company or root domain and a significant update; an earlier relaunch needs review. Confirm the personal posting account is at least one week old. Only featured posts can participate in Hypership, and featuring is controlled by Product Hunt.
@@ -32,7 +32,7 @@ If feedback is sparse, use reproducible bugs, UX observations, and aggregate tel
 2. Make one isolated change, run `npm test && npm run build && npm run validate`, and check the PHP adapter separately where PHP is available.
 3. Deploy only TraceDocs files within `public_html/TraceDocs/`; keep `tracedocs-private/config.php` outside the web root untouched. Do not modify other SiteGround sites or projects.
 4. Smoke test `/TraceDocs/`, `/TraceDocs/api/status`, one supported and one unsupported evaluation if the daily test budget allows, trace export, and MCP tools.
-5. If broken, rename the active `public_html/TraceDocs` directory to a dated failed-release name, move the latest verified release (`tracedocs-release-archive/TraceDocs-v064-20260927` as of 27 September) back under `public_html`, rename it `TraceDocs`, and smoke test the public URL and status endpoint. Confirm the archived directory exists before starting; the root also holds a ZIP backup. Record the incident and its effect. Publish a Product Hunt update only when the change is live and verified.
+5. If broken, rename the active `public_html/TraceDocs` directory to a dated failed-release name, move the latest verified release (`tracedocs-release-archive/TraceDocs-v065-20260927` as of 27 September) back under `public_html`, rename it `TraceDocs`, and smoke test the public URL and status endpoint. Confirm the archived directory exists before starting; the root also holds a ZIP backup. Record the incident and its effect. Publish a Product Hunt update only when the change is live and verified.
 
 ## What to avoid during the 24 hours
 
