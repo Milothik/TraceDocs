@@ -1,5 +1,9 @@
 # Changelog
 
+## 27 September 2026 · v0.6.6 uploaded-source attribution
+
+- The browser hides the prepared research paper's links and attribution when a user opens their own PDF, ZIP or other document, and restores them when the prepared case is reopened. The question placeholder also switches to document-neutral wording. This prevents a user's upload from appearing to be sourced from the demo paper.
+
 ## 27 September 2026 · v0.6.5 trace export
 
 - The browser now shows the complete JSON trace in a dialog with explicit download and copy controls. This keeps the trace accessible when a browser suppresses automatic Blob downloads; opening the dialog does not make another Jev request.

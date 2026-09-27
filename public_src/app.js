@@ -66,6 +66,10 @@ function activateDocument(state) {
   $('corpusCount').textContent = `${state.blocks.length} blocks · ${state.name}`;
   $('caseTitle').textContent = state.name;
   $('caseDescription').textContent = state.note || 'Document structure extracted locally in your browser.';
+  const isResearchCase = state.mode === 'curated';
+  $('caseSource').hidden = !isResearchCase;
+  $('footerSource').hidden = !isResearchCase;
+  $('query').placeholder = isResearchCase ? 'What does the paper say about information in the middle?' : 'Ask a question about your document';
   $('retrieverState').textContent = `${state.blocks.length} structural blocks · no retrieval filter`;
   const limit = evaluationLimit(state);
   $('exportTrace').disabled = true; $('evaluate').disabled = !!limit;
