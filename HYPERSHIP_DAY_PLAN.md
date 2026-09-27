@@ -7,7 +7,7 @@ Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight P
 - Public URL and mobile flow load; TypeSafe key is detected on the server; one real Jev evaluation returns block evidence and a trace. Run an unsupported question and confirm abstention. Do not promote a mock result as a live result.
 - Verify 10 evaluations per IP per UTC day, including MCP and the web UI. Confirm quota storage survives a deployment. Check that no API key or private file is publicly accessible.
 - Verify PDF and ZIP upload, JSON trace download in an ordinary browser, and SiteGround PHP routes. Confirm the JSON view/copy fallback when downloads are suppressed. Rehearse a rollback using the archived release. Check real Jev latency and credits without claiming an estimated cost that is unavailable.
-- Prepare Product Hunt listing, media, maker comment, FAQ and the correct 30 September schedule. Check eligibility: no launch in the prior three months. Featured status is controlled by Product Hunt.
+- Prepare Product Hunt listing, media, maker comment, FAQ and the correct 30 September schedule. Confirm the Hypership event condition of no launch in the prior three months. Product Hunt's general relaunch guidance separately asks for six months between posts for the same product, company or root domain and a significant update; an earlier relaunch needs review. Confirm the personal posting account is at least one week old. Only featured posts can participate in Hypership, and featuring is controlled by Product Hunt.
 
 ## Launch day
 
@@ -40,4 +40,4 @@ If feedback is sparse, use reproducible bugs, UX observations, and aggregate tel
 - No production key rotation, payment system, account system, or public document retention without a dedicated review.
 - No claims of guaranteed prompt-injection prevention, calibrated scores, zero hallucinations, exact token savings, or an in-app LLM answer when those are unmeasured or absent.
 
-Official event announcement: <https://www.producthunt.com/p/producthunt/introducing-hypership-day-build-fast-and-ship-same-day-on-product-hunt>.
+Official event announcement: <https://www.producthunt.com/p/producthunt/introducing-hypership-day-build-fast-and-ship-same-day-on-product-hunt>. Product Hunt relaunch guidance: <https://help.producthunt.com/en/articles/484934-can-i-relaunch-my-product>. Account eligibility: <https://help.producthunt.com/en/articles/771527-personal-account-vs-company-account>.
