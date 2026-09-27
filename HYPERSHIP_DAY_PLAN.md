@@ -32,7 +32,7 @@ If feedback is sparse, use reproducible bugs, UX observations, and aggregate tel
 2. Make one isolated change, run `python3 tools/build_worker.py && npm test && npm run build && npm run validate`, and check the PHP adapter separately where PHP is available.
 3. Deploy only TraceDocs files within `public_html/TraceDocs/`; keep `tracedocs-private/config.php` outside the web root untouched. Do not modify other SiteGround sites or projects.
 4. Smoke test `/TraceDocs/`, `/TraceDocs/api/status`, one supported and one unsupported evaluation if the daily test budget allows, trace export, and MCP tools.
-5. If broken, restore the archived release; record the incident and its effect. Publish a Product Hunt update only when the change is live and verified.
+5. If broken, rename the active `public_html/TraceDocs` directory to a dated failed-release name, move `tracedocs-release-archive/TraceDocs-prelaunch-20260926` back under `public_html`, rename it `TraceDocs`, and smoke test the public URL and status endpoint. The archive also holds a ZIP backup. Record the incident and its effect. Publish a Product Hunt update only when the change is live and verified.
 
 ## What to avoid during the 24 hours
 
