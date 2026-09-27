@@ -5,6 +5,7 @@
 - Connected the private SiteGround configuration to a new TypeSafe key. Real HTTP, MCP and browser Jev evaluations now return cited evidence, abstention and traces. Product Hunt is scheduled for 30 September Hypership.
 - Live ambiguous and contradictory cases returned multiple candidate blocks. The answer contract and web copy now tell calling agents to explain conflicting evidence or ask for clarification rather than silently choose. Cross-block conflict detection and multi-section synthesis remain unsupported.
 - A prepared summary was falsely flagged as a possible instruction by Jev; scores are treated as fallible. The in-app browser did not expose a downloaded trace file, although WebMCP returned the complete JSON trace.
+- Standard `npm test` and `npm run build` now select an available Python 3 executable on Windows and Unix, so launch-day checks run from the documented commands on the maintainer's Windows machine.
 
 ## 26 September 2026 · Hypership preparation
 

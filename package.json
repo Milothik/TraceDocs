@@ -5,8 +5,8 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "start": "node app.mjs",
-    "build": "bash scripts/build.sh",
+    "build": "node scripts/build.mjs",
     "validate": "node scripts/validate-artifact.mjs",
-    "test": "python3 tools/build_worker.py && node --test tests/*.test.mjs"
+    "test": "node tools/python3.mjs tools/build_worker.py && node --test tests/*.test.mjs"
   }
 }
