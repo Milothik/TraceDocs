@@ -27,6 +27,8 @@ The browser registers WebMCP tools when `document.modelContext` is available: `i
 
 The prepared case has 12 English summaries linked to Liu et al., *Lost in the Middle*, TACL 2024: <https://aclanthology.org/2024.tacl-1.9.pdf>. It is a guided demo, not a verbatim article or a blind benchmark. An unsupported premise question demonstrates abstention. External MCP clients and browser tool support must be checked independently.
 
+On the current SiteGround deployment, the host's front layer returns HTTP 403 to the default `python-requests`, `Python-urllib` and PowerShell User-Agent values. The same Python and PowerShell clients receive HTTP 200 for `/api/status` when configured with an identifying User-Agent such as `TraceDocs-client/1.0`; Python also completes MCP `initialize` with that header. Set an identifying User-Agent in external integrations. This is a deployment compatibility observation, not an API authentication mechanism or a guarantee that every MCP client has been tested.
+
 ## Daily beta usage
 
 Ten Jev evaluations are available per client IP per UTC day, shared across the browser and HTTP MCP evaluation tools. One evaluation request counts once even when the hierarchy makes several Jev calls. The limit resets at 00:00 UTC. Document inspection does not consume the quota. The Node adapter serializes updates in a private JSON file, stores a SHA-256 IP hash with UTC date and usage count, and removes old days on writes. It never writes raw IPs. People behind a shared public IP share the allowance; IP changes yield a new allowance. The hosting proxy's forwarding rules need validation to prevent IP spoofing. There is no email collection, subscription or payment flow.
