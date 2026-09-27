@@ -135,7 +135,7 @@ async function mcpProtected(request, env) {
   const id = input?.id ?? null;
   if (input?.jsonrpc !== '2.0' || typeof input.method !== 'string') return mcpError(id, -32600, 'Invalid request');
   if (input.method === 'notifications/initialized') return new Response(null, { status: 202 });
-  if (input.method === 'initialize') return mcpResponse(id, { protocolVersion: '2025-03-26', capabilities: { tools: { listChanged: false } }, serverInfo: { name: 'tracedocs-jev', version: '0.6.0' } });
+  if (input.method === 'initialize') return mcpResponse(id, { protocolVersion: '2025-03-26', capabilities: { tools: { listChanged: false } }, serverInfo: { name: 'tracedocs-jev', version: '0.6.3' } });
   if (input.method === 'ping') return mcpResponse(id, {});
   if (input.method === 'tools/list') return mcpResponse(id, { tools });
   if (input.method !== 'tools/call') return mcpError(id, -32601, 'Method not found');
