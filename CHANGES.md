@@ -1,5 +1,11 @@
 # Changelog
 
+## 27 September 2026 · v0.6.4 live verification
+
+- Connected the private SiteGround configuration to a new TypeSafe key. Real HTTP, MCP and browser Jev evaluations now return cited evidence, abstention and traces. Product Hunt is scheduled for 30 September Hypership.
+- Live ambiguous and contradictory cases returned multiple candidate blocks. The answer contract and web copy now tell calling agents to explain conflicting evidence or ask for clarification rather than silently choose. Cross-block conflict detection and multi-section synthesis remain unsupported.
+- A prepared summary was falsely flagged as a possible instruction by Jev; scores are treated as fallible. The in-app browser did not expose a downloaded trace file, although WebMCP returned the complete JSON trace.
+
 ## 26 September 2026 · Hypership preparation
 
 - Audited the existing Jev-led hierarchy, browser extraction, PHP/Node adapters, MCP/WebMCP, quota and hosting. Preserved the no-retriever-veto architecture.
