@@ -5,7 +5,7 @@ root=Path(__file__).resolve().parents[1]
 assets={}
 for file in (root/'public_src').rglob('*'):
     if not file.is_file():continue
-    route='/'+str(file.relative_to(root/'public_src'))
+    route='/'+file.relative_to(root/'public_src').as_posix()
     mime='text/plain; charset=utf-8'
     if file.suffix=='.html':mime='text/html; charset=utf-8'
     elif file.suffix=='.css':mime='text/css; charset=utf-8'

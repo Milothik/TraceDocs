@@ -6,7 +6,7 @@ Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight P
 
 - Public URL and mobile flow load; TypeSafe key is detected on the server; one real Jev evaluation returns block evidence and a trace. Run an unsupported question and confirm abstention. Do not promote a mock result as a live result.
 - Verify 10 evaluations per IP per UTC day, including MCP and the web UI. Confirm quota storage survives a deployment. Check that no API key or private file is publicly accessible.
-- Verify PDF and ZIP upload, JSON trace download, and SiteGround PHP routes. Rehearse a rollback using the archived release. Check real Jev latency and credits without claiming an estimated cost that is unavailable.
+- Verify PDF and ZIP upload, JSON trace download in an ordinary browser, and SiteGround PHP routes. Confirm the JSON view/copy fallback when downloads are suppressed. Rehearse a rollback using the archived release. Check real Jev latency and credits without claiming an estimated cost that is unavailable.
 - Prepare Product Hunt listing, media, maker comment, FAQ and the correct 30 September schedule. Check eligibility: no launch in the prior three months. Featured status is controlled by Product Hunt.
 
 ## Launch day

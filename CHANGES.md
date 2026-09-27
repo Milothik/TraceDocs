@@ -1,5 +1,11 @@
 # Changelog
 
+## 27 September 2026 · v0.6.5 trace export
+
+- The browser now shows the complete JSON trace in a dialog with explicit download and copy controls. This keeps the trace accessible when a browser suppresses automatic Blob downloads; opening the dialog does not make another Jev request.
+- The Worker build now emits URL paths with forward slashes on Windows; a browser smoke check caught missing nested vendor scripts, and a regression test covers them.
+- Node Worker input validation now accepts `page: null` for unknown page numbers, matching the PHP adapter and the browser's own prepared case.
+
 ## 27 September 2026 · v0.6.4 live verification
 
 - Connected the private SiteGround configuration to a new TypeSafe key. Real HTTP, MCP and browser Jev evaluations now return cited evidence, abstention and traces. Product Hunt is scheduled for 30 September Hypership.

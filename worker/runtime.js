@@ -39,7 +39,7 @@ const publicUsage = u => ({ used: u.used, limit: DAILY_LIMIT, remaining: u.remai
 const quotaMessage = 'Daily Jev limit reached. You can run 10 Jev evaluations per day. The limit resets tomorrow (00:00 UTC).';
 const validQuestion = q => typeof q === 'string' && q.trim().length >= 3 && q.length <= 500;
 function validBlocks(blocks) {
-  return Array.isArray(blocks) && blocks.length >= 1 && blocks.length <= MAX_BLOCKS && blocks.every(b => b && typeof b.id === 'string' && b.id.length > 0 && b.id.length <= 64 && typeof b.title === 'string' && b.title.length <= 300 && typeof b.text === 'string' && !!b.text.trim() && b.text.length <= 3500 && (b.location === undefined || typeof b.location === 'string' && b.location.length <= 200) && (b.page === undefined || Number.isInteger(b.page) && b.page >= 0)) && new Set(blocks.map(b => b.id)).size === blocks.length && blocks.reduce((n, b) => n + b.text.length, 0) <= 1500000;
+  return Array.isArray(blocks) && blocks.length >= 1 && blocks.length <= MAX_BLOCKS && blocks.every(b => b && typeof b.id === 'string' && b.id.length > 0 && b.id.length <= 64 && typeof b.title === 'string' && b.title.length <= 300 && typeof b.text === 'string' && !!b.text.trim() && b.text.length <= 3500 && (b.location === undefined || typeof b.location === 'string' && b.location.length <= 200) && (b.page == null || Number.isInteger(b.page) && b.page >= 0)) && new Set(blocks.map(b => b.id)).size === blocks.length && blocks.reduce((n, b) => n + b.text.length, 0) <= 1500000;
 }
 function parsedPage(location) { const m = location?.match(/(?:PDF page|page)\s+(\d+)/i); return m ? Number(m[1]) : null; }
 const demoBlocks = () => demo.sections.map(s => ({ id: s.id, title: s.path, section: s.path, location: s.location, page: parsedPage(s.location), text: s.text }));
@@ -135,7 +135,7 @@ async function mcpProtected(request, env) {
   const id = input?.id ?? null;
   if (input?.jsonrpc !== '2.0' || typeof input.method !== 'string') return mcpError(id, -32600, 'Invalid request');
   if (input.method === 'notifications/initialized') return new Response(null, { status: 202 });
-  if (input.method === 'initialize') return mcpResponse(id, { protocolVersion: '2025-03-26', capabilities: { tools: { listChanged: false } }, serverInfo: { name: 'tracedocs-jev', version: '0.6.4' } });
+  if (input.method === 'initialize') return mcpResponse(id, { protocolVersion: '2025-03-26', capabilities: { tools: { listChanged: false } }, serverInfo: { name: 'tracedocs-jev', version: '0.6.5' } });
   if (input.method === 'ping') return mcpResponse(id, {});
   if (input.method === 'tools/list') return mcpResponse(id, { tools });
   if (input.method !== 'tools/call') return mcpError(id, -32601, 'Method not found');

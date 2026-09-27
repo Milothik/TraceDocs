@@ -23,6 +23,24 @@ const block = (id, text) => ({ id, title: `Section ${id}`, section: `Section ${i
 const jsonRequest = (url, ip, body) => worker.fetch(new Request(`https://example.test${url}`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-tracedocs-client-ip': ip }, body: JSON.stringify(body) }), env);
 const api = (ip, blocks = [block('b1', 'A synthetic finding.')], question = 'What does the document conclude?') => jsonRequest('/api/evaluate', ip, { question, document_id: 'sample', document_name: 'Paper', blocks });
 const call = async (ip, name, args) => (await jsonRequest('/mcp', ip, { jsonrpc: '2.0', id: 8, method: 'tools/call', params: { name, arguments: args } })).json();
+
+test('Worker serves nested browser assets with URL separators on every build platform', async () => {
+  for (const path of ['/app.js', '/project_index.js', '/vendor/pdf.min.js', '/vendor/jszip.min.js']) {
+    const response = await worker.fetch(new Request(`https://example.test${path}`), env);
+    assert.equal(response.status, 200, path);
+    assert.match(response.headers.get('content-type'), /javascript/, path);
+  }
+});
+
+test('Worker accepts an unknown page from the browser like the PHP adapter', async () => {
+  const mock = mockJev(() => true);
+  try {
+    const response = await api('203.0.113.50', [{ ...block('unknown-page', 'A test fact.'), location: 'section without page', page: null }]);
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).evidence[0].page, null);
+  } finally { mock.restore(); }
+});
+
 function mockJev(pick) {
   const original = globalThis.fetch, inspected = [];
   globalThis.fetch = async (url, options) => {

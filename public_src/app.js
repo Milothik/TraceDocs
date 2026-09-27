@@ -178,12 +178,33 @@ async function evaluateJev() {
   } catch (error) { $('jevOutput').textContent = error.message; throw error; }
   finally { $('evaluate').disabled = !!evaluationLimit(documentState); }
 }
+let traceUrl = null;
 function exportTrace() {
   if (!lastEvaluation) return;
   const trace = { ...lastEvaluation.trace, created_at: new Date().toISOString(), source_sha256: documentState.sha256, source_size_bytes: documentState.bytes, usage: lastEvaluation.usage, selected_case: selectedQuestion ? { id: selectedQuestion.id, expected_section: selectedQuestion.expected } : null };
-  const blob = new Blob([JSON.stringify(trace, null, 2)], { type: 'application/json' }), url = URL.createObjectURL(blob), a = document.createElement('a');
-  a.href = url; a.download = 'tracedocs-jev-trace.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const json = JSON.stringify(trace, null, 2);
+  if (traceUrl) URL.revokeObjectURL(traceUrl);
+  traceUrl = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+  $('traceJson').value = json;
+  $('traceDownload').href = traceUrl;
+  $('traceCopyStatus').textContent = 'The trace contains your document references and question.';
+  $('traceDialog').showModal();
 }
+$('traceClose').onclick = () => $('traceDialog').close();
+$('traceDialog').onclose = () => {
+  if (traceUrl) URL.revokeObjectURL(traceUrl);
+  traceUrl = null;
+  $('traceDownload').removeAttribute('href');
+};
+$('traceCopy').onclick = async () => {
+  try {
+    await navigator.clipboard.writeText($('traceJson').value);
+    $('traceCopyStatus').textContent = 'JSON copied.';
+  } catch {
+    $('traceJson').select();
+    $('traceCopyStatus').textContent = 'Select and copy the highlighted JSON.';
+  }
+};
 $('loadDemo').onclick = () => loadDemo().catch(e => $('searchStatus').textContent = e.message);
 $('documentFile').addEventListener('change', async e => { try { $('uploadStatus').textContent = 'Extracting document structure…'; await loadFile(e.target.files[0]); } catch (err) { $('uploadStatus').textContent = `Could not load file: ${err.message}`; } });
 $('searchForm').addEventListener('submit', e => { e.preventDefault(); if (!documentState) { $('searchStatus').textContent = 'Open the case or upload a document.'; return; } selectedQuestion = null; prepareQuestion($('query').value); });
