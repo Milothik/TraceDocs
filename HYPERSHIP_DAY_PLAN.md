@@ -14,7 +14,7 @@ Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight P
 | CEST | Action | Decision gate |
 | --- | --- | --- |
 | 08:30–09:00 | Final smoke test, backup release, confirm Product Hunt schedule and support availability. | Stop if Jev or trace is broken. |
-| 09:00 | Launch goes live if scheduled; post the prepared maker comment. | Verify live listing and product URL. |
+| 09:00 | Launch goes live if scheduled; check the already prepared maker comment. | Verify live listing, comment and product URL. |
 | 09:00–11:00 | Watch failures, quota, latency, browser uploads and authentic feedback. | P0: fix or roll back immediately. |
 | 11:00 | Triage feedback using `HYPERSHIP_BACKLOG.md`; reproduce before coding. | Pick one P1 or small P2 item, if justified. |
 | 11:00–14:00 | Implement, test and stage first change. | Preserve Jev-first evidence and abstention. |
@@ -32,7 +32,7 @@ If feedback is sparse, use reproducible bugs, UX observations, and aggregate tel
 2. Make one isolated change, run `npm test && npm run build && npm run validate`, and check the PHP adapter separately where PHP is available.
 3. Deploy only TraceDocs files within `public_html/TraceDocs/`; keep `tracedocs-private/config.php` outside the web root untouched. Do not modify other SiteGround sites or projects.
 4. Smoke test `/TraceDocs/`, `/TraceDocs/api/status`, one supported and one unsupported evaluation if the daily test budget allows, trace export, and MCP tools.
-5. If broken, rename the active `public_html/TraceDocs` directory to a dated failed-release name, move `tracedocs-release-archive/TraceDocs-prelaunch-20260926` back under `public_html`, rename it `TraceDocs`, and smoke test the public URL and status endpoint. The archive also holds a ZIP backup. Record the incident and its effect. Publish a Product Hunt update only when the change is live and verified.
+5. If broken, rename the active `public_html/TraceDocs` directory to a dated failed-release name, move the latest verified release (`tracedocs-release-archive/TraceDocs-v064-20260927` as of 27 September) back under `public_html`, rename it `TraceDocs`, and smoke test the public URL and status endpoint. Confirm the archived directory exists before starting; the root also holds a ZIP backup. Record the incident and its effect. Publish a Product Hunt update only when the change is live and verified.
 
 ## What to avoid during the 24 hours
 
