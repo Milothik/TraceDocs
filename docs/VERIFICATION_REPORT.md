@@ -158,4 +158,8 @@ Node.js 20+ and Python 3 are required for the Node build. Configure `TYPESAFE_AP
 ## 28 September Product Hunt schedule recheck
 
 - At 15:52 UTC, the signed-in Product Hunt pre-launch dashboard still showed **Scheduled** and a countdown of 1 day, 15 hours and 9 minutes, consistent with 30 September at 09:01 CEST. The dashboard showed completion marks for shoutouts, the launch video, the first comment and product categories. This verifies the schedule at that time; it does not prove featuring or launch eligibility.
-- The browser inventory exposed only Codex In-app Browser, with no ordinary Chrome or Edge tab available for the JSON file-save check. Account age and any related launches in the Hypership three-month or Product Hunt six-month windows still require maker confirmation; the public profile did not expose enough information to establish either condition.
+- The browser inventory exposed only Codex In-app Browser, with no ordinary Chrome or Edge tab available for the JSON file-save check. The public profile did not expose account age or enough activity to establish launch eligibility independently.
+
+## 28 September maker eligibility confirmation
+
+- At 15:56 UTC, the maker confirmed that the personal Product Hunt account is at least one week old, there has been no Hypership launch in the prior three months, and there has been no Product Hunt launch for the same product, company or root domain in the prior six months. This is a maker attestation, not independent platform evidence; reconfirm it at the 29 September go/no-go. Product Hunt featuring remains outside the maker's control and must not be inferred from scheduling.
