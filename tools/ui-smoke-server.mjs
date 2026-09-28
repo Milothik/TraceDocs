@@ -25,7 +25,8 @@ globalThis.fetch = async (url, options) => {
       relevant: { noul: chosen ? .98 : .02 },
       evidence: { noul: chosen ? .98 : .02 },
       contradicts_premise: { noul: .01 },
-      prompt_injection: { noul: .01 },
+      // A benign block above the cutoff exercises fallible-signal UI wording.
+      prompt_injection: { noul: passage.id === 'c07' ? .41 : .01 },
     },
   }), { status: 200 });
 };

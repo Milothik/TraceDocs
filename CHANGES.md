@@ -1,5 +1,9 @@
 # Changelog
 
+## 28 September 2026 · v0.6.9 instruction-signal wording
+
+- The research case produced one block above the beta prompt-injection signal cutoff even though its text describes a benign key-value task. The evidence rule and JSON API field stay unchanged, but the page now calls this a fallible signal rather than stating that document instructions were confirmed. This avoids implying that the uncalibrated model score proves an attack.
+
 ## 28 September 2026 · v0.6.8 preview isolation and source status
 
 - The HTML base URL now follows the folder that serves the page. A provisional release loads its own assets and API instead of the live folder; the public `/TraceDocs/` path keeps the same behavior. Versioned asset URLs also prevent the preview test from reusing an earlier live script cache entry.
