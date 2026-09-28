@@ -1,28 +1,13 @@
-# Product Hunt launch draft · 30 September 2026
+# TraceDocs × Jev · Product Hunt launch handoff
 
-## Listing copy
+**Scheduled:** 30 September 2026, 12:01 a.m. PDT (09:01 Europe/Madrid). Product Hunt controls the actual publication and featuring.
 
-**Name:** TraceDocs × Jev
+**Live product:** <https://noirway.nite.black/TraceDocs/> · v0.6.8 on SiteGround.
 
-**Tagline:** Jev discovers cited evidence across structured documents
+**Scheduled listing:** <https://www.producthunt.com/products/tracedocs?launch=tracedocs>.
 
-**Pricing:** Free beta. Ten Jev evaluations per IP per UTC day.
+The SiteGround key is held in private configuration outside the web root. The v0.6.6 rollback is preserved at `tracedocs-release-archive/TraceDocs-v066-20260928`. A former v0.6.7 public preview was archived before launch; it is no longer a second public entry point. The active beta limit is ten Jev evaluations per IP per UTC day.
 
-**Short description:** TraceDocs structures a document, lets Jev judge its evidence, and gives AI agents a cited evidence set and verifiable trace. Try a research case or upload your own PDF or project ZIP.
+The current listing copy, FAQ and maker comment are in [PRODUCT_HUNT_COPY.md](PRODUCT_HUNT_COPY.md). Follow [HYPERSHIP_DAY_PLAN.md](HYPERSHIP_DAY_PLAN.md) for the go/no-go gate, event schedule and rollback steps. [docs/VERIFICATION_REPORT.md](docs/VERIFICATION_REPORT.md) distinguishes verified production behavior from remaining checks. [HYPERSHIP_BACKLOG.md](HYPERSHIP_BACKLOG.md) is a candidate-work menu; ship only in response to reproducible feedback.
 
-**First comment / maker story:**
-
-I built TraceDocs to give document evidence a clear role in an agent's workflow. A conventional search index can miss the passage that matters before a model ever sees it. TraceDocs structures the source, asks Jev to judge every block in a small document, and uses Jev to choose which sections of a larger source deserve full block evaluation. It returns cited evidence, coverage metrics and a JSON trace. The calling LLM can produce an answer from those references or abstain when the evidence is insufficient.
-
-The guided case uses prepared summaries linked to the 2024 *Lost in the Middle* paper. Each IP can run ten Jev evaluations per UTC day during beta. Structural previews and uncalibrated thresholds still have limits; I am not claiming measured accuracy or token savings. I would value feedback on coverage, citations and the agent tool contract.
-
-## Launch media and checks
-
-- Record question → structured document → Jev section scan → evidence set → cited agent answer → trace.
-- Use scores captured from a real Jev run, with the original source open for inspection.
-- Verify the public product path, server key, the ten-per-day quota, proxy client-IP headers and persistent usage storage.
-- Check a real Jev evaluation, an unsupported question, a large-document incomplete result, mobile layout and the exported JSON trace.
-- Test WebMCP in a supported browser and the HTTP MCP endpoint with an external client before claiming universal model access.
-- Submit or schedule the Product Hunt listing from the owner's account. This draft is not a submission.
-
-**Official event post:** https://www.producthunt.com/p/producthunt/introducing-hypership-day-build-fast-and-ship-same-day-on-product-hunt
+**Open gates as of 28 September:** confirm the maker account age and any related launches within the event/relaunch windows; verify JSON file saving in an ordinary browser; test interoperability with the intended external MCP client. Product Hunt featuring cannot be assumed from a scheduled listing. Recheck web, Jev status, quota, trace and Product Hunt at launch time. Do not repeat Jev evaluations solely to fill the quota.
