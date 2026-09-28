@@ -1,6 +1,6 @@
 # Hypership Day operations · 30 September 2026
 
-Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight Pacific time, 09:00 CEST in September. Confirm the scheduled launch time in the Product Hunt UI before the event. Hypership Day asks makers to ship in response to real, actionable feedback; do not invent feedback or ship a feature merely to create activity.
+Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight Pacific time (09:00 CEST in September). This listing is scheduled for 12:01 a.m. PDT / 09:01 CEST on 30 September; confirm that exact time in the Product Hunt UI. Hypership Day asks makers to ship in response to real, actionable feedback; do not invent feedback or ship a feature merely to create activity.
 
 ## Go/no-go by 29 September
 
@@ -14,8 +14,8 @@ Time zone: Europe/Madrid (CEST). Product Hunt's daily cycle begins at midnight P
 | CEST | Action | Decision gate |
 | --- | --- | --- |
 | 08:30–09:00 | Final smoke test, backup release, confirm Product Hunt schedule and support availability. | Stop if Jev or trace is broken. |
-| 09:00 | Launch goes live if scheduled; check the already prepared maker comment. | Verify live listing, comment and product URL. |
-| 09:00–11:00 | Watch failures, quota, latency, browser uploads and authentic feedback. | P0: fix or roll back immediately. |
+| 09:01 | Launch goes live if scheduled; check the already prepared maker comment. | Verify live listing, comment and product URL. |
+| 09:01–11:00 | Watch failures, quota, latency, browser uploads and authentic feedback. | P0: fix or roll back immediately. |
 | 11:00 | Triage feedback using `HYPERSHIP_BACKLOG.md`; reproduce before coding. | Pick one P1 or small P2 item, if justified. |
 | 11:00–14:00 | Implement, test and stage first change. | Preserve Jev-first evidence and abstention. |
 | 14:00 | Deploy if tests and smoke check pass; update Product Hunt with a factual change note. | Otherwise keep the stable release. |
