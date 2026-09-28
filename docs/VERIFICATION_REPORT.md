@@ -142,3 +142,7 @@ Node.js 20+ and Python 3 are required for the Node build. Configure `TYPESAFE_AP
 ## 28 September production observability check
 
 - The SiteGround PHP adapter emits one aggregate success or Jev-failure event per evaluation attempt. Success events include outcome, document block count (a coarse size proxy), Jev calls, evidence count, instruction-signal count and evaluation latency. Failure events include block count and a bounded error type, but not failure latency. These events omit document/query text, filenames, IP addresses and keys. Counts by event type provide basic evaluation and failure totals; there is no LLM-failure metric because the service does not invoke an LLM. Byte/character size and failure-duration metrics remain unavailable.
+
+## 28 September launch-build rehearsal
+
+- On the D: working copy at `095f254`, `npm test` passed all 15 tests, `npm run build` generated the 14-asset Worker, and `npm run validate` passed. Tests use mocked Jev responses; no live evaluation or quota was used. C: has no free space, so `TEMP`, `TMP` and npm's cache were directed to D: for the successful run. PHP lint/deployment was not part of this Worker build check.
