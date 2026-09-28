@@ -25,7 +25,7 @@ The browser registers WebMCP tools when `document.modelContext` is available: `i
 | `evaluate_case_evidence` | Compatibility alias for case-wide Jev evaluation. |
 | `evaluate_supplied_passages` | Jev evaluates every supplied block, or uses its structural hierarchy for larger input. |
 
-The prepared case has 12 English summaries linked to Liu et al., *Lost in the Middle*, TACL 2024: <https://aclanthology.org/2024.tacl-1.9.pdf>. It is a guided demo, not a verbatim article or a blind benchmark. An unsupported premise question demonstrates abstention. External MCP clients and browser tool support must be checked independently.
+The prepared case has 12 English summaries linked to Liu et al., *Lost in the Middle*, TACL 2024: <https://aclanthology.org/2024.tacl-1.9.pdf>. It is a guided demo, not a verbatim article or a blind benchmark. An unsupported premise question demonstrates abstention. On 28 September, the official TypeScript MCP client 2.1.0 completed Streamable HTTP negotiation, listed all six tools and read the case with its default headers. This verifies one real SDK path; it does not establish compatibility for every host or client.
 
 On the current SiteGround deployment, the host's front layer returns HTTP 403 to the default `python-requests`, `Python-urllib` and PowerShell User-Agent values. The same Python and PowerShell clients receive HTTP 200 for `/api/status` when configured with an identifying User-Agent such as `TraceDocs-client/1.0`; Python also completes MCP `initialize` with that header. Set an identifying User-Agent in external integrations. This is a deployment compatibility observation, not an API authentication mechanism or a guarantee that every MCP client has been tested.
 
@@ -56,4 +56,4 @@ The active interface supports block-level source inspection and JSON trace expor
 
 ## Verification limits
 
-Tests mock the Jev response and prove the unfiltered small-document path, Jev-led hierarchy, abstention and incomplete coverage, shared daily quota, reset, persisted hash records and claim linkage. They do not measure Jev accuracy, real token savings, billable cost, production IP forwarding or external model-client interoperability. Review `docs/VERIFICATION_REPORT.md` for commands and results.
+Tests mock the Jev response and prove the unfiltered small-document path, Jev-led hierarchy, abstention and incomplete coverage, shared daily quota, reset, persisted hash records and claim linkage. They do not measure Jev accuracy, real token savings, billable cost or production IP forwarding. The official MCP SDK check covers one client path, not general host interoperability. Review `docs/VERIFICATION_REPORT.md` for commands and results.
