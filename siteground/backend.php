@@ -155,7 +155,7 @@ try {
         $input=read_json_body(); $id=$input['id']??null;
         if (($input['jsonrpc']??null)!=='2.0' || !is_string($input['method']??null)) mcp_error($id,-32600,'Invalid request');
         if ($input['method']==='notifications/initialized') {http_response_code(202);exit;}
-        if ($input['method']==='initialize') mcp_reply($id,['protocolVersion'=>'2025-03-26','capabilities'=>['tools'=>['listChanged'=>false]],'serverInfo'=>['name'=>'tracedocs-jev','version'=>'0.6.6']]);
+        if ($input['method']==='initialize') mcp_reply($id,['protocolVersion'=>'2025-03-26','capabilities'=>['tools'=>['listChanged'=>false]],'serverInfo'=>['name'=>'tracedocs-jev','version'=>'0.6.8']]);
         if ($input['method']==='ping') mcp_reply($id,new stdClass());
         if ($input['method']==='tools/list') mcp_reply($id,['tools'=>tool_definitions()]);
         if ($input['method']!=='tools/call') mcp_error($id,-32601,'Method not found');

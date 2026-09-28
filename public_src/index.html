@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <base href="/TraceDocs/">
+  <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101c2b">
   <meta name="description" content="TraceDocs uses Jev to narrow document evidence before an agent reads the full source. Inspect page references, typed scores, abstentions and an exportable trace.">
   <title>TraceDocs × Jev · Evidence before context</title>
-  <link rel="stylesheet" href="./style.css?v=0.6.6">
+  <link rel="stylesheet" href="./style.css?v=0.6.8">
 </head>
 <body>
   <header class="topbar"><div class="brand"><span class="mark">T<span>·</span></span><span>TraceDocs <span class="times">× Jev</span></span></div><div class="topright"><span class="pill">10 JEV EVALUATIONS / IP / DAY · BETA</span><a href="./plan.md" target="_blank">Method ↗</a></div></header>
@@ -27,6 +27,6 @@
   <dialog id="sourceDialog"><div class="dialogHead"><div><span class="eyebrow">SOURCE PASSAGE</span><h2 id="dialogTitle"></h2><p id="dialogMeta"></p></div><button id="closeDialog" type="button" aria-label="Close">×</button></div><pre id="sourceText"></pre><div class="dialogFoot"><a id="rawLink" target="_blank" rel="noopener">Open the original PDF ↗</a><button id="dialogClose2" type="button">Close</button></div></dialog>
   <dialog id="traceDialog"><div class="dialogHead"><div><span class="eyebrow">EVALUATION TRACE</span><h2>JSON trace</h2><p>Download the file or copy the JSON below. No new Jev evaluation is needed.</p></div><button id="traceClose" type="button" aria-label="Close">×</button></div><label class="sr-only" for="traceJson">JSON trace</label><textarea id="traceJson" readonly spellcheck="false"></textarea><div class="dialogFoot"><span id="traceCopyStatus" role="status">The trace contains your document references and question.</span><div class="traceActions"><a id="traceDownload" download="tracedocs-jev-trace.json">Download JSON</a><button id="traceCopy" type="button">Copy JSON</button></div></div></dialog>
   <dialog id="betaLimitDialog" class="betaLimitDialog"><div class="dialogHead"><div><span class="eyebrow">BETA LIMIT REACHED</span><h2>Daily Jev limit reached.</h2><p>You can run 10 Jev evaluations per day. The limit resets tomorrow at 00:00 UTC. You can still inspect the document and previous evidence.</p></div><button id="betaLimitClose" type="button" aria-label="Close">×</button></div><div class="dialogFoot"><span>Thanks for testing TraceDocs × Jev.</span><button type="button" onclick="document.getElementById('betaLimitDialog').close()">Close</button></div></dialog>
-  <script src="./vendor/jszip.min.js"></script><script src="./app.js?v=0.6.6" type="module"></script>
+  <script src="./vendor/jszip.min.js"></script><script src="./app.js?v=0.6.8" type="module"></script>
 </body>
 </html>

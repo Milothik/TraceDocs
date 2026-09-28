@@ -69,6 +69,10 @@ function activateDocument(state) {
   const isResearchCase = state.mode === 'curated';
   $('caseSource').hidden = !isResearchCase;
   $('footerSource').hidden = !isResearchCase;
+  if (isResearchCase) {
+    $('documentFile').value = '';
+    $('uploadStatus').textContent = 'Your document or ZIP project is structured in this browser. Jev receives the blocks when you request an evaluation.';
+  }
   $('query').placeholder = isResearchCase ? 'What does the paper say about information in the middle?' : 'Ask a question about your document';
   $('retrieverState').textContent = `${state.blocks.length} structural blocks · no retrieval filter`;
   const limit = evaluationLimit(state);

@@ -1,5 +1,10 @@
 # Changelog
 
+## 28 September 2026 · v0.6.8 preview isolation and source status
+
+- The HTML base URL now follows the folder that serves the page. A provisional release loads its own assets and API instead of the live folder; the public `/TraceDocs/` path keeps the same behavior. Versioned asset URLs also prevent the preview test from reusing an earlier live script cache entry.
+- Returning from a user upload to the prepared research case clears the upload message and file selection, so the page no longer presents the previous file as the active source.
+
 ## 27 September 2026 · v0.6.6 uploaded-source attribution
 
 - The browser hides the prepared research paper's links and attribution when a user opens their own PDF, ZIP or other document, and restores them when the prepared case is reopened. The question placeholder also switches to document-neutral wording. This prevents a user's upload from appearing to be sourced from the demo paper.
