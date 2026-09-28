@@ -146,3 +146,9 @@ Node.js 20+ and Python 3 are required for the Node build. Configure `TYPESAFE_AP
 ## 28 September launch-build rehearsal
 
 - On the D: working copy at `095f254`, `npm test` passed all 15 tests, `npm run build` generated the 14-asset Worker, and `npm run validate` passed. Tests use mocked Jev responses; no live evaluation or quota was used. C: has no free space, so `TEMP`, `TMP` and npm's cache were directed to D: for the successful run. PHP lint/deployment was not part of this Worker build check.
+
+## 28 September production document-import smoke
+
+- In the public v0.6.9 page, the 2.6 MB public-paper PDF fixture at `D:\TraceDocs-launch-backups\tracedocs-smoke-paper.pdf` was parsed in the browser into 174 blocks. The v0.6.9 release ZIP at `D:\TraceDocs-launch-backups\TraceDocs-launch-20260928-v069-full.zip` was parsed into 13 supported source files and 1,774 blocks. Its SHA-256 matched the release record: `1ec119148f5952946cf7981b07e63e61a589738610cd7b5b6502a35648b00900`.
+- The ZIP correctly displayed the 1,200-block evaluation limit and asked for a smaller source. No Jev evaluation was requested for either upload. After the uploads, the public status endpoint returned HTTP 200 with Jev available and the shared quota still at 3/10 for 28 September (seven remaining, reset at `2026-09-29T00:00:00Z`). The UI identifies document parsing as local to the browser; structured text is sent to Jev only on an evaluation request.
+- The only available browser surface was Codex's in-app browser. Ordinary-browser JSON file saving remains unverified; the JSON copy fallback was verified in the earlier live evaluation.
